@@ -2,6 +2,8 @@
 #define MKDISK_H
 
 #include <string>
+#include <regex>
+#include <iostream>
 
 using namespace std;
 
@@ -34,6 +36,46 @@ class mkdisk{
     //Destructor
     ~mkdisk(){
     }
+
+    void busquedaParametros(string palabra) {
+
+        regex mk_disk("mkdisk");
+        regex m_s("-s->[0-9]+");
+        regex m_f("-f->(BF|FF|WF)");
+        regex m_u("-u->(m|k)");
+        regex m_path("(-path->(/[a-z0-9]+)*\\.dsk|-path->\"(/[a-z0-9 ]+)*\\.dsk\")");
+
+        //  mkdisk  -u->K -s->3000 -path->/home/user/Disco1.dsk
+
+        palabra = minuscula(palabra);
+
+        if(regex_search(palabra, mk_disk)) {
+            cout<<"mkdisk Encontrado."<<endl;
+        }
+        if (regex_search(palabra, m_s)) {
+            cout<<"-s Encontrado"<<endl;
+        }
+        if (regex_search(palabra, m_f)) {
+            std::cout<<"-m Encontrado"<<endl;
+        }
+        if (regex_search(palabra, m_u)) {
+            std::cout<<"-u Encontrado"<<endl;
+        }
+        if (regex_search(palabra, m_path)) {
+            cout<<"-path Encontrado"<<endl;
+        }
+    }
+
+    string minuscula(string frase) {
+        string aux = "";
+        for (int i = 0; i < frase.length(); i++) {
+            aux += tolower(frase[i]);
+        }    
+        //cout<<aux<<endl;
+        return aux;
+    }
+
+
 };
 
 #endif

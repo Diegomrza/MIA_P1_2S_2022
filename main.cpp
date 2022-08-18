@@ -2,6 +2,9 @@
 #include <string>
 #include <regex>
 
+#include "./src/Comandos/mkdisk.cpp"
+#include "./src/Comandos/rmdisk.cpp"
+
 using namespace std;
 
 bool busqueda(string);
@@ -44,16 +47,12 @@ int main() {
 }
 
 bool busqueda(string palabra) {
-    regex reg(palabra);
-    if (regex_search("Hola mucho gusto, mi nombre es diego.", reg)) {
-        cout << "¡Matched!." << endl;
-        return true;
-    } else {
-        cout << "Not found." << endl;
-        return false;
-    }
-}
-
-void mkdisk() {
     
+    mkdisk *mk = new mkdisk();
+    mk->busquedaParametros("mkdisk -s->10 -path->\"/home/mis discos/Disco4.dsk\"");
+
+    rmdisk *rm = new rmdisk();
+    rm->busquedaParametros("rmdisk -path->\"/home/mis discos/Disco4.dsk\"");
+    
+    return false;
 }
